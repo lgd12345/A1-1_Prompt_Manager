@@ -44,6 +44,25 @@ def show_menu():
     print("0. 종료")
 
 
+def main():
+    while True:
+        show_menu()
+        choice = input("선택: ").strip()
+
+        if choice == "1":
+            add_prompt()
+
+        elif choice == "0":
+            print("프로그램을 종료합니다.")
+            break
+
+        elif choice in ["2", "3", "4", "5", "6", "7", "8"]:
+            print("아직 구현되지 않은 기능입니다.")
+
+        else:
+            print("올바른 메뉴 번호를 입력해주세요.")
+
+
 def add_prompt():
     print("\n=== 프롬프트 추가 ===")
 
@@ -108,5 +127,4 @@ def add_prompt():
 
 
 if __name__ == "__main__":
-    show_menu()
-    add_prompt()
+    main()
