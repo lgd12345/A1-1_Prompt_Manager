@@ -1,4 +1,6 @@
-prompts = [
+import json
+
+DEFAULT_PROMPTS = [
     {
         "title": "블로그 글 작성 도우미",
         "content": "주어진 주제에 대해 이해하기 쉬운 블로그 글을 작성해주세요.",
@@ -18,6 +20,30 @@ prompts = [
         "favorite": True,
     },
 ]
+
+# JSON 파일 이름과 저장/불러오기 함수 추가
+DATA_FILE = "prompts.json"
+
+def save_prompts():
+    with open(DATA_FILE, "w", encoding="utf-8") as file:
+        json.dump(prompts, file, ensure_ascii=False, indent=2)
+
+
+def load_prompts():
+    try:
+        with open(DATA_FILE, "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+            if isinstance(data, list):
+                return data
+
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
+    return [prompt.copy() for prompt in DEFAULT_PROMPTS]
+
+
+prompts = load_prompts()
 
 
 CATEGORIES = [
@@ -140,6 +166,8 @@ def add_prompt():
             "favorite": False,
         }
     )
+
+    save_prompts()
 
     print(f"\n'{title}' 프롬프트가 추가되었습니다.")
 
@@ -311,6 +339,8 @@ def toggle_favorite():
 
     prompt = prompts[index]
     prompt["favorite"] = not prompt["favorite"]
+
+    save_prompts()
 
     if prompt["favorite"]:
         print(f"'{prompt['title']}' 프롬프트를 즐겨찾기에 추가했습니다.")
