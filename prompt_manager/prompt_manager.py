@@ -253,55 +253,10 @@ def search_prompt():
 
     print(f"\n총 {len(results)}개의 프롬프트를 찾았습니다.")
 
-# 상세보기
-def show_detail():
-    print("\n=== 프롬프트 상세 보기 ===")
-
+def select_prompt():
     if not prompts:
         print("등록된 프롬프트가 없습니다.")
-        return
-
-    show_list()
-
-    while True:
-        choice = input("\n번호 입력: ").strip()
-
-        if not choice:
-            print("프롬프트 번호를 입력해주세요.")
-            continue
-
-        if not choice.isdigit():
-            print("올바른 번호를 입력해주세요.")
-            continue
-
-        prompt_num = int(choice)
-
-        if not 1 <= prompt_num <= len(prompts):
-            print("존재하지 않는 프롬프트 번호입니다.")
-            continue
-
-        break
-
-    prompt = prompts[prompt_num - 1]
-
-    favorite = "⭐" if prompt["favorite"] else "아니오"
-
-    print("\n----------------------------")
-    print(f"제목: {prompt['title']}")
-    print(f"카테고리: {prompt['category']}")
-    print(f"즐겨찾기: {favorite}")
-    print("----------------------------")
-    print("내용:")
-    print(prompt["content"])
-    print("----------------------------")
-
-# 즐겨찾기 관리
-def toggle_favorite():
-    print("\n=== 즐겨찾기 관리 ===")
-
-    if not prompts:
-        print("등록된 프롬프트가 없습니다.")
-        return
+        return None
 
     show_list()
 
@@ -322,9 +277,39 @@ def toggle_favorite():
             print("존재하지 않는 프롬프트 번호입니다.")
             continue
 
-        break
+        return prompt_num - 1
 
-    prompt = prompts[prompt_num - 1]
+# 상세보기
+def show_detail():
+    print("\n=== 프롬프트 상세 보기 ===")
+
+    index = select_prompt()
+
+    if index is None:
+        return
+
+    prompt = prompts[index]
+    favorite = "⭐" if prompt["favorite"] else "아니오"
+
+    print("\n----------------------------")
+    print(f"제목: {prompt['title']}")
+    print(f"카테고리: {prompt['category']}")
+    print(f"즐겨찾기: {favorite}")
+    print("----------------------------")
+    print("내용:")
+    print(prompt["content"])
+    print("----------------------------")
+
+# 즐겨찾기 관리
+def toggle_favorite():
+    print("\n=== 즐겨찾기 관리 ===")
+
+    index = select_prompt()
+
+    if index is None:
+        return
+
+    prompt = prompts[index]
     prompt["favorite"] = not prompt["favorite"]
 
     if prompt["favorite"]:
