@@ -24,21 +24,9 @@
     "favorite": true
   },
   {
-    "title": "22",
-    "content": "2",
-    "category": "텍스트 생성",
+    "title": "빵만들기",
+    "content": "생크림 듬뿍 빵 만들기!",
+    "category": "영상 생성",
     "favorite": true
-  },
-  {
-    "title": "tr",
-    "content": "trrtr",
-    "category": "이미지 생성",
-    "favorite": false
-  },
-  {
-    "title": "212",
-    "content": "1",
-    "category": "자동화",
-    "favorite": false
   }
 ]
